@@ -1,0 +1,83 @@
+class Ball {
+  float x, y;
+  float vx, vy;
+  float radius;
+  float doggy;//the color
+
+  Ball() {
+    x = random(width);
+    y = random(height);
+    radius = 10;
+    vx = random(4);
+    vy = random(3);
+    doggy = random(77);
+  }
+
+  void draw() {
+    colorMode(HSB, 100);
+    fill(doggy, 100, 100);
+    ellipse(x, y, radius*2, radius*2);
+  }
+  void move() {
+    println("old x:"+x+", old y:"+y);
+    x = x + vx;
+    y = y + vy;
+    if (x < radius || x > width-radius) {
+      vx = -vx;
+    }
+    if (y < radius || y > height-radius) {
+      vy = -vy;
+    }
+  }
+}
+
+class paddle {
+  float x, y;
+  float vy;
+  float a, b;//a and b are the length and width
+  float doggy;//the color
+
+  paddle(float x, float y) {
+    this.x = x;
+    this.y = y;
+    a=30;
+    b=50;
+    vy = random(3);
+    doggy = color(0);
+  }
+
+  void draw() {
+    fill(doggy, 100, 100);
+    rect(x, y, a, b);
+  }
+
+  void move() {
+    println("old x:"+x+", old y:"+y);
+    y = y + vy;
+    if (y < 20 || y > 480) {
+      vy = -vy;
+    }
+  }
+}
+
+Ball b;
+paddle dog;
+paddle cat;
+void setup() {
+  size(520, 500);
+
+  b = new Ball();
+  dog = new paddle(20, 20);
+  cat= new paddle(460, 460);
+}
+
+void draw() {
+  background(2, 0, 100);
+
+  b.draw();
+  b.move();
+  dog.draw();
+  dog.move();
+  cat.draw();
+  cat.move();
+}
